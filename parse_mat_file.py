@@ -50,3 +50,11 @@ def _to_flat_array(val):
     val = np.asarray(val)
     return val.flatten().astype(np.float64)
 
+# Capacity Calculation
+def calculate_capacity(current: np.ndarray, time: np.ndarray) -> float:
+    
+    if current.size < 2 or time.size < 2:
+        return np.nan
+    # Integrate the absolute current over time to get total charge (in Ampere-seconds)
+    capacity_as = np.trapz(np.abs(current),time)
+    return capacity_as / 3600.0
